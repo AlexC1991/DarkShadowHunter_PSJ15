@@ -6,7 +6,6 @@ namespace DarkShadowHunter
     public class GunAmmoToFire : MonoBehaviour
     {
         public List<CustomizeableAmmo.ammoTypes> ammoManager = new List<CustomizeableAmmo.ammoTypes>(5);
-
         public void AddedElementalToGun()
         {
             if (ammoManager.Count <= ammoManager.Capacity)

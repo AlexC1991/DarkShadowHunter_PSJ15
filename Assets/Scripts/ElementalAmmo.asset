@@ -16,18 +16,18 @@ MonoBehaviour:
   - elementalType: 5
     damage: 2
     areaOfEffect: 2
-    shootingSpeed: 1
+    shootingSpeed: 30
     playerBuff: 1
     litersOfCapacity: 1
   - elementalType: 0
     damage: 2
     areaOfEffect: 3
-    shootingSpeed: 1
+    shootingSpeed: 40
     playerBuff: 2
     litersOfCapacity: 1
   - elementalType: 3
     damage: 5
     areaOfEffect: 2
-    shootingSpeed: 0
+    shootingSpeed: 20
     playerBuff: 5
     litersOfCapacity: 1
