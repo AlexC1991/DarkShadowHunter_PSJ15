@@ -6,7 +6,9 @@ public class BulletLifeTime : MonoBehaviour
 {
     private GunAmmoToFire gAmmo;
     private Camera _camera;
+    private ParticleSystem _particleSystem;
     [SerializeField] private Rigidbody _rb;
+    [SerializeField] private Material[] bulletMaterials;
     
     private void Start()
     {
@@ -20,16 +22,26 @@ public class BulletLifeTime : MonoBehaviour
     {
         foreach (var g in gAmmo.ammoManager)
         {
-            
+                StartCoroutine(CheckingBulletColor());
         }
-
-        // Destroy the original bullet instance
-        Destroy(gameObject);
-        
-        yield return null;
+        yield return new WaitForSeconds(0.8f);
+        Destroy(gameObject,0.02f);
     }
 
-   
-    
-    
+    private IEnumerator CheckingBulletColor()
+    {
+        TrailRenderer trailRenderer = this.gameObject.GetComponent<TrailRenderer>();
+
+        if (trailRenderer != null)
+        {
+            Renderer renderer = this.gameObject.GetComponent<Renderer>();
+            if (renderer != null)
+            {
+                Material objectMaterial = renderer.material;
+                
+                trailRenderer.material = objectMaterial;
+            }
+        }
+        yield break;
+    }
 }

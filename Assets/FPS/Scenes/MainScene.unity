@@ -3700,7 +3700,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 1511040608873517000, guid: de8565a6a8a346547880649b4e099aa1,
     type: 3}
-  ammoToFire: {fileID: 0}
+  ammoToFire: {fileID: 903801434}
+  bulletMaterials:
+  - {fileID: 2100000, guid: e7aa1b8647105554083d6c6132fceff6, type: 2}
+  - {fileID: 2100000, guid: 56ca10d51c1432d42a19d32d786ac116, type: 2}
+  - {fileID: 2100000, guid: 5cf521809cc984a45a23deb99f33258f, type: 2}
+  - {fileID: 2100000, guid: 85aed7594d7955043b6297744a027401, type: 2}
+  - {fileID: 2100000, guid: 98595ea6a9c038740848688c74604535, type: 2}
+  - {fileID: 2100000, guid: 2cdc65652f2271a499e5fcd33de0db0d, type: 2}
+  - {fileID: 2100000, guid: e1f2e6f7599d15a4a98bc9139f391f06, type: 2}
 --- !u!1001 &2729281212881330968
 PrefabInstance:
   m_ObjectHideFlags: 0

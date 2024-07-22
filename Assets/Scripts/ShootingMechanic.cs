@@ -1,9 +1,19 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using DarkShadowHunter;
 public class ShootingMechanic : MonoBehaviour
 {
-    [SerializeField] private GameObject bulletPrefab;
+    public GameObject bulletPrefab;
     [SerializeField] private GunAmmoToFire ammoToFire;
+    [SerializeField] private Material[] bulletMaterials;
+    private Camera _camera;
+
+    private void Start()
+    {
+        _camera = FindObjectOfType<Camera>();
+    }
+
     private void Update()
     {
         if (Input.GetButtonDown("Fire"))
@@ -16,44 +26,115 @@ public class ShootingMechanic : MonoBehaviour
     {
         foreach (var g in ammoToFire.ammoManager)
         {
+            Material bulletMaterial = GetColorForElementalType(g.elementalType);
+
             if (g.areaOfEffect == CustomizeableAmmo.AreaOfEffect.SingleTarget)
             {
-                Instantiate(bulletPrefab, transform.GetChild(1).transform.position, Quaternion.identity);
+                if (bulletPrefab != null)
+                {
+                    GameObject bullet = Instantiate(bulletPrefab, transform.GetChild(1).transform.position, Quaternion.identity);
+                    bullet.GetComponent<Renderer>().material = bulletMaterial;
+                    Rigidbody _rb = bullet.GetComponent<Rigidbody>();
+                    //_rb.useGravity = false;
+                    _rb.AddForce(_camera.transform.forward * g.shootingSpeed, ForceMode.Impulse);
+                }
             }
             else if (g.areaOfEffect == CustomizeableAmmo.AreaOfEffect.SplitShot)
             {
-                Vector3 spawnPosition = transform.GetChild(1).position;
-                
-                Instantiate(bulletPrefab, spawnPosition + Vector3.right, Quaternion.identity);
-                Instantiate(bulletPrefab, spawnPosition - Vector3.right, Quaternion.identity);
+                if (bulletPrefab != null)
+                {
+                    GameObject bulletOne = Instantiate(bulletPrefab, transform.GetChild(1).transform.position + new Vector3(0.06f,0,0), Quaternion.identity);
+                    GameObject bulletTwo = Instantiate(bulletPrefab, transform.GetChild(1).transform.position - new Vector3(0.06f,0,0), Quaternion.identity);
+                    bulletOne.GetComponent<Renderer>().material = bulletMaterial;
+                    bulletTwo.GetComponent<Renderer>().material = bulletMaterial;
+                    Rigidbody _rbOne = bulletOne.GetComponent<Rigidbody>();
+                    Rigidbody _rbTwo = bulletTwo.GetComponent<Rigidbody>();
+                    //_rbOne.useGravity = false;
+                    //_rbTwo.useGravity = false;
+                    _rbOne.AddForce(_camera.transform.forward * g.shootingSpeed, ForceMode.Impulse);
+                    _rbTwo.AddForce(_camera.transform.forward * g.shootingSpeed, ForceMode.Impulse);
+                }
             }
             else if (g.areaOfEffect == CustomizeableAmmo.AreaOfEffect.Projectile)
             {
-                Vector3 spawnPosition = transform.GetChild(1).position;
-                
-                Instantiate(bulletPrefab, spawnPosition + Vector3.forward, Quaternion.identity);
+                if (bulletPrefab != null)
+                {
+                    StartCoroutine(ProjectileBuller());
+                }
             }
             else if (g.areaOfEffect == CustomizeableAmmo.AreaOfEffect.DragonFire)
             {
-                int numBullets = 8; // Number of bullets to spawn in a circular pattern
-                float radius = 2f; // Radius of the circle
+                int numBullets = 8;
+                float radius = 2f;
 
-                Vector3 centerPosition = transform.position; // Center position for the circle (can adjust if needed)
+                Vector3 centerPosition = transform.GetChild(1).transform.position;
 
                 for (int i = 0; i < numBullets; i++)
                 {
-                    float angle = i * (360f / numBullets); // Calculate angle for each bullet
+                    float angle = i * (360f / numBullets); 
 
-                    // Calculate position on circle using trigonometry
+                    
                     float x = centerPosition.x + radius * Mathf.Cos(angle * Mathf.Deg2Rad);
                     float z = centerPosition.z + radius * Mathf.Sin(angle * Mathf.Deg2Rad);
                     Vector3 spawnPosition = new Vector3(x, centerPosition.y, z);
-
-                    // Instantiate bullet at calculated position with no rotation
-                    Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
+                    
+                    if (bulletPrefab != null)
+                    {
+                        GameObject bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
+                        bullet.GetComponent<Renderer>().material = bulletMaterial;
+                        Rigidbody _rb = bullet.GetComponent<Rigidbody>();
+                        //_rb.useGravity = false;
+                        _rb.AddForce(_camera.transform.forward * g.shootingSpeed, ForceMode.Impulse);
+                    }
                 }
 
             }
+        }
+    }
+
+    private IEnumerator ProjectileBuller()
+    {
+        foreach (var g in ammoToFire.ammoManager)
+        {
+            if (g.areaOfEffect == CustomizeableAmmo.AreaOfEffect.Projectile)
+            {
+                Material bulletMaterial = GetColorForElementalType(g.elementalType);
+                
+                GameObject bullet = Instantiate(bulletPrefab, transform.GetChild(1).transform.position + new Vector3(0,0.3f,0), _camera.transform.rotation);
+                bullet.GetComponent<Renderer>().material = bulletMaterial;
+                Rigidbody _rb = bullet.GetComponent<Rigidbody>();
+                _rb.AddForce(Vector3.up * 5, ForceMode.Impulse);
+                _rb.AddForce(_camera.transform.forward * 3, ForceMode.VelocityChange);
+                yield return new WaitForSeconds(0.1f);
+                _rb.AddForce(Vector3.down * 3, ForceMode.Impulse);
+                yield return new WaitForSeconds(0.2f);
+                _rb.AddForce(Vector3.down * 4, ForceMode.Impulse);
+
+            }
+        }
+        yield break;
+    }
+
+    public Material GetColorForElementalType(CustomizeableAmmo.ElementalType type)
+    {
+        switch (type)
+        {
+            case CustomizeableAmmo.ElementalType.Fire:
+                return bulletMaterials[0];
+            case CustomizeableAmmo.ElementalType.Ice:
+                return bulletMaterials[1];
+            case CustomizeableAmmo.ElementalType.Poison:
+                return bulletMaterials[2];
+            case CustomizeableAmmo.ElementalType.Electric:
+                return bulletMaterials[3];
+            case CustomizeableAmmo.ElementalType.Plasma:
+                return bulletMaterials[4];
+            case CustomizeableAmmo.ElementalType.Light:
+                return bulletMaterials[5];
+            case CustomizeableAmmo.ElementalType.DarkPlasma:
+                return bulletMaterials[6];
+            default:
+                return null; // Default color
         }
     }
 }
