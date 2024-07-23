@@ -536,7 +536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12e7c4c8d75efaa44a937078be6b6984, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: item0
+  itemName: item
 --- !u!1001 &395209595
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1410,12 +1410,12 @@ MonoBehaviour:
   - {fileID: 588096360}
   - {fileID: 2047866112}
   itemList:
-  - {fileID: 249889926}
-  - {fileID: 1485966531}
-  - {fileID: 436721435}
-  - {fileID: 22658674}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   recipes:
-  - item0item0item0item0
+  - itemitemitemitem
   recipeResults:
   - {fileID: 3200388434389715405, guid: 0eace29d1d0264c4cb2353d0bc32a061, type: 3}
   resultSlot: {fileID: 2140883562}

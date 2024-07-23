@@ -35,12 +35,11 @@ public class CraftingManager : MonoBehaviour
                 nearestSlot.gameObject.SetActive(true);
                 nearestSlot.GetComponent<Image>().sprite = _currentItem.GetComponent<Image>().sprite;
                 nearestSlot.item = _currentItem;
-
                 itemList[nearestSlot.index] = _currentItem;
-
 
                 _currentItem = null;
 
+                CheckforCreatedRecipes();
             }
         }
     }
@@ -51,11 +50,11 @@ public class CraftingManager : MonoBehaviour
         resultSlot.item = null;
 
         string currentRecipeString = "";
-        foreach (Slot slot in craftingSlots)
+        foreach (Item item in itemList)
         {
-            if (slot.item!=null)
+            if (item!=null)
             {
-                currentRecipeString += slot.item.itemName;
+                currentRecipeString += item.itemName;
             }else
             {
                 currentRecipeString += "null";
