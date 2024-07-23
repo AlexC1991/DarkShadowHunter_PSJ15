@@ -5,42 +5,85 @@ namespace Unity.FPS.Gameplay
 {
     public class Interactable : MonoBehaviour
     {
-        private PlayerInputHandler player;
-        [SerializeField] private GameObject Prompt;
-        private Camera mainCam;
+        private PlayerInputHandler _player;
+        [SerializeField] private GameObject _Prompt;
+        [SerializeField] private GameObject _craftCanvas;
+        private Camera _mainCam;
+        private bool _isCrafting;
         // Start is called before the first frame update
         void Start()
         {
-            mainCam = Camera.main;
+            _mainCam = Camera.main;
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (player!=null)
+            if (_player!=null)
             {
                 BillboardForPrompt();
+                if (Input.GetKeyUp(KeyCode.E))
+                {
+                    MenuSwitch();
+                }
+            }
+            else
+            {
+                MenuSwitch(false);//will close menu if too far from player
+                _isCrafting = false;
             }
         }
+
+        private void MenuSwitch()
+        {
+            _craftCanvas.SetActive(!_isCrafting);
+            _isCrafting = !_isCrafting;
+            if (_isCrafting)
+            {
+                Cursor.lockState = CursorLockMode.Confined;
+                Cursor.visible = true;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+        }
+        private void MenuSwitch(bool inputBool)
+        {
+            _craftCanvas.SetActive(inputBool);
+            _isCrafting = inputBool;
+            if (_isCrafting)
+            {
+                Cursor.lockState = CursorLockMode.Confined;
+                Cursor.visible = true;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+        }
+
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent<PlayerInputHandler>(out player))
+            if (other.TryGetComponent<PlayerInputHandler>(out _player))
             {
-                Prompt.SetActive(true);
+                _Prompt.SetActive(true);
             }
         }
         private void OnTriggerExit(Collider other)
         {
-            if (other.TryGetComponent<PlayerInputHandler>(out player))
+            if (other.TryGetComponent<PlayerInputHandler>(out _player))
             {
-                player = null;
-                Prompt.SetActive(false);
-            }
+                _player = null;
+                _Prompt.SetActive(false);
+             }
         }
 
         private void BillboardForPrompt()
         {
-            Prompt.transform.rotation =mainCam.transform.rotation;
+            _Prompt.transform.rotation =_mainCam.transform.rotation;
         }
     }
 }
