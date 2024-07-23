@@ -64,30 +64,10 @@ public class ShootingMechanic : MonoBehaviour
             }
             else if (g.areaOfEffect == CustomizeableAmmo.AreaOfEffect.DragonFire)
             {
-                int numBullets = 8;
-                float radius = 2f;
-
-                Vector3 centerPosition = transform.GetChild(1).transform.position;
-
-                for (int i = 0; i < numBullets; i++)
+                if (bulletPrefab != null)
                 {
-                    float angle = i * (360f / numBullets); 
-
-                    
-                    float x = centerPosition.x + radius * Mathf.Cos(angle * Mathf.Deg2Rad);
-                    float z = centerPosition.z + radius * Mathf.Sin(angle * Mathf.Deg2Rad);
-                    Vector3 spawnPosition = new Vector3(x, centerPosition.y, z);
-                    
-                    if (bulletPrefab != null)
-                    {
-                        GameObject bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
-                        bullet.GetComponent<Renderer>().material = bulletMaterial;
-                        Rigidbody _rb = bullet.GetComponent<Rigidbody>();
-                        //_rb.useGravity = false;
-                        _rb.AddForce(_camera.transform.forward * g.shootingSpeed, ForceMode.Impulse);
-                    }
+                    StartCoroutine(DrageonFireAction());
                 }
-
             }
         }
     }
@@ -112,7 +92,28 @@ public class ShootingMechanic : MonoBehaviour
 
             }
         }
-        yield break;
+    }
+
+    private IEnumerator DrageonFireAction()
+    {
+        foreach (var g in ammoToFire.ammoManager)
+        {
+            Material bulletMaterial = GetColorForElementalType(g.elementalType);
+        
+            for (int i = 0; i < 4; i++) 
+            {
+                GameObject bullet = Instantiate(bulletPrefab, transform.GetChild(1).position, _camera.transform.rotation);
+                Rigidbody _rb = bullet.GetComponent<Rigidbody>();
+                bullet.GetComponent<Renderer>().material = bulletMaterial;
+
+                
+                Vector3 direction = Quaternion.Euler(0, 0, i * 90) * _camera.transform.forward;
+
+                _rb.AddForce(direction * g.shootingSpeed, ForceMode.Impulse);
+            }
+
+            yield return new WaitForSeconds(0.2f); 
+        }
     }
 
     public Material GetColorForElementalType(CustomizeableAmmo.ElementalType type)

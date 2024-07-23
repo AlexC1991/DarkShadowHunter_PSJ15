@@ -15,13 +15,25 @@ MonoBehaviour:
   ammoTypesArray:
   - elementalType: 2
     damage: 2
-    areaOfEffect: 2
+    areaOfEffect: 3
     shootingSpeed: 10
     playerBuff: 1
     litersOfCapacity: 1
   - elementalType: 0
     damage: 2
     areaOfEffect: 2
+    shootingSpeed: 20
+    playerBuff: 2
+    litersOfCapacity: 1
+  - elementalType: 0
+    damage: 2
+    areaOfEffect: 1
+    shootingSpeed: 20
+    playerBuff: 2
+    litersOfCapacity: 1
+  - elementalType: 0
+    damage: 2
+    areaOfEffect: 0
     shootingSpeed: 20
     playerBuff: 2
     litersOfCapacity: 1
