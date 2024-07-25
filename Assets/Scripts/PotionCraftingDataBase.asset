@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1013649505ae1e841bc65a524b6c5fad, type: 3}
+  m_Name: PotionCraftingDataBase
+  m_EditorClassIdentifier: 
+  potionsToCraft:
+  - nameOfPotion: Fire Potion
+    potionIngredients: 0
+    expLevelOfPotion: 0
+  - nameOfPotion: Ice Potion
+    potionIngredients: 1
+    expLevelOfPotion: 0
+  - nameOfPotion: Light Potion
+    potionIngredients: 2
+    expLevelOfPotion: 0
