@@ -50,7 +50,7 @@ public class CraftingManager : MonoBehaviour
         resultSlot.item = null;
 
         string currentRecipeString = "";
-        foreach (Item item in itemList)
+        foreach (Item item in itemList)//check itemlist for currentRecipeString
         {
             if (item!=null)
             {
@@ -60,7 +60,7 @@ public class CraftingManager : MonoBehaviour
                 currentRecipeString += "null";
             }
         }
-        for (int i=0; i<recipes.Length;i++)
+        for (int i=0; i<recipes.Length;i++)//check recipe list for a match with currentRecipeString
         {
             if (recipes[i]==currentRecipeString)
             {
@@ -72,6 +72,7 @@ public class CraftingManager : MonoBehaviour
     }
     public void OnClickSlot(Slot slot)
     {
+        //delete clicked slot item and check for recipe
         slot.item = null;
         itemList[slot.index] = null;
         slot.gameObject.SetActive(false);
@@ -79,6 +80,7 @@ public class CraftingManager : MonoBehaviour
     }
     public void OnMouseDownItem(Item item)
     {
+        //drag material
         if (_currentItem ==null)
         {
             _currentItem = item;
