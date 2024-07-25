@@ -35,7 +35,6 @@ namespace DarkShadowHunter
             SplitShot,
             Projectile,
             DragonFire,
-            None
         }
 
         public enum PlayerBuff

@@ -60,8 +60,7 @@ MeshRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: -876546973899608171, guid: 6de5be25f6aa4cd4382b6d7ff16c93d9, type: 3}
+  m_Materials: []
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -175,7 +174,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: e0065dc3116e3d44981d486d7cef3148,
         type: 3}
       propertyPath: m_Name
-      value: POTION BOTTLE 1
+      value: Potion Bottle Prefab
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
