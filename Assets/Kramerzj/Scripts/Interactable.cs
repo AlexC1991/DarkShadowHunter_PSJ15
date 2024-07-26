@@ -8,12 +8,12 @@ namespace DarkShadowHunter
         private CharacterController _player;
         [SerializeField] private GameObject _Prompt;
         [SerializeField] private GameObject _craftCanvas;
-        private Camera _mainCam;
+        [SerializeField] private Camera _mainCam;
         private bool _isCrafting;
         // Start is called before the first frame update
         void Start()
         {
-            _mainCam = Camera.main;
+            //_mainCam = Camera.main;
         }
 
         // Update is called once per frame

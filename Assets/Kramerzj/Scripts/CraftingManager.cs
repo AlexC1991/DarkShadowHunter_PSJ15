@@ -12,9 +12,11 @@ namespace DarkShadowHunter
         public Slot[] craftingSlots;
 
         public List<Item> itemList;
+        public InventoryDataContainer SO_Data;
         public string[] recipes;
         public Item[] recipeResults;
         public Slot resultSlot;
+        public string[] currentRecipeString = new string[4];
         private void Update()
         {
             if (Input.GetMouseButtonUp(0))
@@ -50,21 +52,18 @@ namespace DarkShadowHunter
             resultSlot.gameObject.SetActive(false);
             resultSlot.item = null;
 
-            string currentRecipeString = "";
-            foreach (Item item in itemList)//check itemlist for currentRecipeString
+            for (int i =0;i< currentRecipeString.Length;i++)//empty the array
             {
-                if (item != null)
-                {
-                    currentRecipeString += item.itemName;
-                }
-                else
-                {
-                    currentRecipeString += "null";
-                }
+                currentRecipeString[i] = "";
+            }
+            for(int i = 0; i < itemList.Count; i++)//check itemlist for currentRecipeString
+            {
+                 currentRecipeString[i] = itemList[i].itemName;
             }
             for (int i = 0; i < recipes.Length; i++)//check recipe list for a match with currentRecipeString
             {
-                if (recipes[i] == currentRecipeString)
+                Debug.LogError(currentRecipeString.ToString());
+                if (recipes[i] == currentRecipeString.ToString())
                 {
                     resultSlot.gameObject.SetActive(true);
                     resultSlot.GetComponent<Image>().sprite = recipeResults[i].GetComponent<Image>().sprite;
@@ -89,6 +88,37 @@ namespace DarkShadowHunter
                 customCursor.gameObject.SetActive(true);
                 customCursor.sprite = _currentItem.GetComponent<Image>().sprite;
             }
+        }
+        public void OnCraftButtonDown()
+        {
+            int materialNeededCouter = 0;
+            if (resultSlot.item!=null)
+            {
+                for(int i = 0; i < currentRecipeString.Length; i++)
+                {
+                    if (currentRecipeString[i]!= "")
+                    {
+                        materialNeededCouter++;
+                        if (SO_Data.inventoryData[i].inventoryItemCounter>=1) {
+                            materialNeededCouter--;
+                        }
+                    }
+
+                }
+            }
+            if (materialNeededCouter == 0)
+            {
+                for (int i = 0; i < currentRecipeString.Length; i++)
+                {
+                    if (currentRecipeString[i] != "")
+                    {
+                        SO_Data.inventoryData[i].inventoryItemCounter--;//use material in SO database
+                    }
+                }
+                //do something to add things in inventory
+
+            }
+            
         }
     }
 }

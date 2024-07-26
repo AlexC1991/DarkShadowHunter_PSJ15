@@ -8,6 +8,7 @@ TagManager:
   - Gloom Residue
   - Tainted Flesh
   - Dark Bead
+  - Interactable
   layers:
   - Default
   - TransparentFX

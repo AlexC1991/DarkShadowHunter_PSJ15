@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: -4648852041769076468}
   - component: {fileID: -5804825421199075023}
   - component: {fileID: 2106512708192620148}
+  - component: {fileID: 1143463679513704338}
   m_Layer: 0
   m_Name: Character
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -227,6 +228,27 @@ MonoBehaviour:
   downValue: -30
   upValue: 20
   playerCamera: {fileID: 5891822821203973005}
+--- !u!114 &1143463679513704338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3052894996122428424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fd0e8434bbf7b0448d85ea6d5a6b0ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inventoryM: {fileID: 0}
+  _iDC: {fileID: 11400000, guid: 14d1dd923d9ae4143b9eef7ae6abc37f, type: 2}
+  tagToPickupOnly:
+  - Black Ash
+  - Gloom Residue
+  - Tainted Flesh
+  - Dark Bead
+  _mainCamera: {fileID: 5891822821203973005}
+  _pickUpText: {fileID: 0}
 --- !u!1 &3573007760452139102
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,7 +468,15 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7575043293490325277, guid: 518807f806243aa43a5a1cd52994bc5a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7819290372960040896}
+    - targetCorrespondingSourceObject: {fileID: 7575043293490325277, guid: 518807f806243aa43a5a1cd52994bc5a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1151215832367334393}
   m_SourcePrefab: {fileID: 100100000, guid: 518807f806243aa43a5a1cd52994bc5a, type: 3}
 --- !u!4 &4231364227098197340 stripped
 Transform:
@@ -454,3 +484,45 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6053494746079397653}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4403852876040085512 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7575043293490325277, guid: 518807f806243aa43a5a1cd52994bc5a,
+    type: 3}
+  m_PrefabInstance: {fileID: 6053494746079397653}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7819290372960040896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4403852876040085512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d851b779f0fb67e42b831da94222ab04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ammoManager: []
+--- !u!114 &1151215832367334393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4403852876040085512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5fffd90f40104948977ab8fa9cfc7f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 1511040608873517000, guid: de8565a6a8a346547880649b4e099aa1,
+    type: 3}
+  ammoToFire: {fileID: 0}
+  bulletMaterials:
+  - {fileID: 2100000, guid: e7aa1b8647105554083d6c6132fceff6, type: 2}
+  - {fileID: 2100000, guid: 56ca10d51c1432d42a19d32d786ac116, type: 2}
+  - {fileID: 2100000, guid: 5cf521809cc984a45a23deb99f33258f, type: 2}
+  - {fileID: 2100000, guid: 85aed7594d7955043b6297744a027401, type: 2}
+  - {fileID: 2100000, guid: 98595ea6a9c038740848688c74604535, type: 2}
+  - {fileID: 2100000, guid: 2cdc65652f2271a499e5fcd33de0db0d, type: 2}
+  - {fileID: 2100000, guid: e1f2e6f7599d15a4a98bc9139f391f06, type: 2}
