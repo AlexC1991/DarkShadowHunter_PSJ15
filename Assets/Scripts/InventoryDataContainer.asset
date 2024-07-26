@@ -14,6 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryData:
   - inventoryItemName: Black Ash
-    inventoryItemCounter: 2
+    inventoryItemCounter: 1
     inventoryItemSprite: {fileID: 21300000, guid: 857bbe9cab63af24889294a0f9e9b949,
+      type: 3}
+  - inventoryItemName: Dark Bead
+    inventoryItemCounter: 1
+    inventoryItemSprite: {fileID: 21300000, guid: 3da69ef43a311634b9d17bbb883482a9,
+      type: 3}
+  - inventoryItemName: Gloom Residue
+    inventoryItemCounter: 1
+    inventoryItemSprite: {fileID: 21300000, guid: 7cf303aa4534fe142982180802809ff9,
+      type: 3}
+  - inventoryItemName: Gloom Residue
+    inventoryItemCounter: 1
+    inventoryItemSprite: {fileID: 21300000, guid: 7353a879987c6644aa189716b4c71a5b,
       type: 3}

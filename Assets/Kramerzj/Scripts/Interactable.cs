@@ -1,19 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace Unity.FPS.Gameplay
+namespace DarkShadowHunter
 {
     public class Interactable : MonoBehaviour
     {
-        private PlayerInputHandler _player;
+        private CharacterController _player;
         [SerializeField] private GameObject _Prompt;
         [SerializeField] private GameObject _craftCanvas;
-        private Camera _mainCam;
+        [SerializeField] private Camera _mainCam;
         private bool _isCrafting;
         // Start is called before the first frame update
         void Start()
         {
-            _mainCam = Camera.main;
+            //_mainCam = Camera.main;
         }
 
         // Update is called once per frame
@@ -67,14 +67,14 @@ namespace Unity.FPS.Gameplay
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent<PlayerInputHandler>(out _player))
+            if (other.TryGetComponent<CharacterController>(out _player))
             {
                 _Prompt.SetActive(true);
             }
         }
         private void OnTriggerExit(Collider other)
         {
-            if (other.TryGetComponent<PlayerInputHandler>(out _player))
+            if (other.TryGetComponent<CharacterController>(out _player))
             {
                 _player = null;
                 _Prompt.SetActive(false);
