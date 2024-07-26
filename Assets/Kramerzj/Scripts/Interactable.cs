@@ -5,7 +5,7 @@ namespace DarkShadowHunter
 {
     public class Interactable : MonoBehaviour
     {
-        private CharacterController _player;
+        private PlayerScript _player;
         [SerializeField] private GameObject _Prompt;
         [SerializeField] private GameObject _craftCanvas;
         [SerializeField] private Camera _mainCam;
@@ -25,6 +25,7 @@ namespace DarkShadowHunter
                 if (Input.GetKeyUp(KeyCode.E))
                 {
                     MenuSwitch();
+                    _player.PauseSwitch();
                 }
             }
             else
@@ -67,15 +68,16 @@ namespace DarkShadowHunter
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent<CharacterController>(out _player))
+            if (other.TryGetComponent<PlayerScript>(out _player))
             {
                 _Prompt.SetActive(true);
             }
         }
         private void OnTriggerExit(Collider other)
         {
-            if (other.TryGetComponent<CharacterController>(out _player))
+            if (other.TryGetComponent<PlayerScript>(out _player))
             {
+                _player.PauseSwitch();
                 _player = null;
                 _Prompt.SetActive(false);
              }

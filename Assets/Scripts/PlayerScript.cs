@@ -29,6 +29,7 @@ namespace DarkShadowHunter
         private bool _walkSpeedOnly;
         private bool switchInputs;
         [SerializeField] private Camera playerCamera;
+        private bool _isPause;
         //[FormerlySerializedAs("_animator")] [Header("Character Animations")] [SerializeField]
         //private Animator animator;
 
@@ -50,6 +51,14 @@ namespace DarkShadowHunter
 
         private void Update()
         {
+            if (Input.GetKeyUp(KeyCode.Escape))
+            {
+                PauseSwitch();
+            }
+            if (_isPause)
+            {
+                return;
+            }
             NormalMovementController();
             ApplyGravity();
 
@@ -67,6 +76,11 @@ namespace DarkShadowHunter
             // // Set the camera and character controller to look in the same direction and continuously updates.
             // _cameraTransform = playerCamera.transform;
             // _cameraTransform.position = transform.position;
+        }
+
+        public void PauseSwitch()
+        {
+            _isPause = !_isPause;
         }
 
         private void NormalMovementController()
