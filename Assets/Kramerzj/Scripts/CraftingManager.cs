@@ -2,90 +2,93 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-public class CraftingManager : MonoBehaviour
+namespace DarkShadowHunter
 {
-    private Item _currentItem;
-    public Image customCursor;
-
-    public Slot[] craftingSlots;
-
-    public List<Item> itemList;
-    public string[] recipes;
-    public Item[] recipeResults;
-    public Slot resultSlot;
-    private void Update()
+    public class CraftingManager : MonoBehaviour
     {
-        if (Input.GetMouseButtonUp(0))
+        private Item _currentItem;
+        public Image customCursor;
+
+        public Slot[] craftingSlots;
+
+        public List<Item> itemList;
+        public string[] recipes;
+        public Item[] recipeResults;
+        public Slot resultSlot;
+        private void Update()
         {
-            if (_currentItem != null)
+            if (Input.GetMouseButtonUp(0))
             {
-                customCursor.gameObject.SetActive(false);
-                Slot nearestSlot = null;
-                float shortestDistance = float.MaxValue;
-                foreach (Slot slot in craftingSlots)
+                if (_currentItem != null)
                 {
-                    float dist = Vector2.Distance(Input.mousePosition, slot.transform.position);
-                    if (dist<shortestDistance)
+                    customCursor.gameObject.SetActive(false);
+                    Slot nearestSlot = null;
+                    float shortestDistance = float.MaxValue;
+                    foreach (Slot slot in craftingSlots)
                     {
-                        shortestDistance = dist;
-                        nearestSlot = slot;
+                        float dist = Vector2.Distance(Input.mousePosition, slot.transform.position);
+                        if (dist < shortestDistance)
+                        {
+                            shortestDistance = dist;
+                            nearestSlot = slot;
+                        }
                     }
+                    nearestSlot.gameObject.SetActive(true);
+                    nearestSlot.GetComponent<Image>().sprite = _currentItem.GetComponent<Image>().sprite;
+                    nearestSlot.item = _currentItem;
+                    itemList[nearestSlot.index] = _currentItem;
+
+                    _currentItem = null;
+
+                    CheckforCreatedRecipes();
                 }
-                nearestSlot.gameObject.SetActive(true);
-                nearestSlot.GetComponent<Image>().sprite = _currentItem.GetComponent<Image>().sprite;
-                nearestSlot.item = _currentItem;
-                itemList[nearestSlot.index] = _currentItem;
-
-                _currentItem = null;
-
-                CheckforCreatedRecipes();
             }
         }
-    }
 
-    void CheckforCreatedRecipes()
-    {
-        resultSlot.gameObject.SetActive(false);
-        resultSlot.item = null;
-
-        string currentRecipeString = "";
-        foreach (Item item in itemList)//check itemlist for currentRecipeString
+        void CheckforCreatedRecipes()
         {
-            if (item!=null)
+            resultSlot.gameObject.SetActive(false);
+            resultSlot.item = null;
+
+            string currentRecipeString = "";
+            foreach (Item item in itemList)//check itemlist for currentRecipeString
             {
-                currentRecipeString += item.itemName;
-            }else
+                if (item != null)
+                {
+                    currentRecipeString += item.itemName;
+                }
+                else
+                {
+                    currentRecipeString += "null";
+                }
+            }
+            for (int i = 0; i < recipes.Length; i++)//check recipe list for a match with currentRecipeString
             {
-                currentRecipeString += "null";
+                if (recipes[i] == currentRecipeString)
+                {
+                    resultSlot.gameObject.SetActive(true);
+                    resultSlot.GetComponent<Image>().sprite = recipeResults[i].GetComponent<Image>().sprite;
+                    resultSlot.item = recipeResults[i];
+                }
             }
         }
-        for (int i=0; i<recipes.Length;i++)//check recipe list for a match with currentRecipeString
+        public void OnClickSlot(Slot slot)
         {
-            if (recipes[i]==currentRecipeString)
-            {
-                resultSlot.gameObject.SetActive(true);
-                resultSlot.GetComponent<Image>().sprite = recipeResults[i].GetComponent<Image>().sprite;
-                resultSlot.item = recipeResults[i];
-            }
+            //delete clicked slot item and check for recipe
+            slot.item = null;
+            itemList[slot.index] = null;
+            slot.gameObject.SetActive(false);
+            CheckforCreatedRecipes();
         }
-    }
-    public void OnClickSlot(Slot slot)
-    {
-        //delete clicked slot item and check for recipe
-        slot.item = null;
-        itemList[slot.index] = null;
-        slot.gameObject.SetActive(false);
-        CheckforCreatedRecipes();
-    }
-    public void OnMouseDownItem(Item item)
-    {
-        //drag material
-        if (_currentItem ==null)
+        public void OnMouseDownItem(Item item)
         {
-            _currentItem = item;
-            customCursor.gameObject.SetActive(true);
-            customCursor.sprite = _currentItem.GetComponent<Image>().sprite;
+            //drag material
+            if (_currentItem == null)
+            {
+                _currentItem = item;
+                customCursor.gameObject.SetActive(true);
+                customCursor.sprite = _currentItem.GetComponent<Image>().sprite;
+            }
         }
     }
 }

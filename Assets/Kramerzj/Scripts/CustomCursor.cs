@@ -1,17 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class CustomCursor : MonoBehaviour
+namespace DarkShadowHunter
 {
-    private void Awake()
+    public class CustomCursor : MonoBehaviour
     {
-        transform.position = Input.mousePosition;//?
-    }
+        private void Awake()
+        {
+            transform.position = Input.mousePosition;//?
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        transform.position =Input.mousePosition;
+        // Update is called once per frame
+        void Update()
+        {
+            transform.position = Input.mousePosition;
+        }
     }
 }

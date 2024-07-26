@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Slot : MonoBehaviour
+namespace DarkShadowHunter
 {
-    public Item item;
-    public int index;
+    public class Slot : MonoBehaviour
+    {
+        public Item item;
+        public int index;
+    }
 }
