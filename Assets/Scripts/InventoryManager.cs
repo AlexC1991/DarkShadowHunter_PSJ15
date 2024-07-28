@@ -153,6 +153,7 @@ namespace DarkShadowHunter
             }
         }
 
+
         private IEnumerator ManagingInventory()
             {
                 for (int i = 0; i < currentInventoryData.Count; i++)

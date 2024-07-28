@@ -82,6 +82,10 @@ namespace DarkShadowHunter
         {
             _isPause = !_isPause;
         }
+        public void PauseSwitch(bool inputBool)
+        {
+            _isPause = inputBool;
+        }
 
         private void NormalMovementController()
         { 

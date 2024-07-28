@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DarkShadowHunter
 {
@@ -13,6 +14,8 @@ namespace DarkShadowHunter
             public string nameOfPotion;
             public PotionIngredients potionIngredients;
             public PotionExpLevel expLevelOfPotion;
+            public Sprite potionIcon;
+            public int potionCount;
         }
         
         public enum PotionIngredients

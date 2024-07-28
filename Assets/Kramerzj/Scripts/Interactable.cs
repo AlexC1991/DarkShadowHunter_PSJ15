@@ -77,7 +77,7 @@ namespace DarkShadowHunter
         {
             if (other.TryGetComponent<PlayerScript>(out _player))
             {
-                _player.PauseSwitch();
+                _player.PauseSwitch(false);
                 _player = null;
                 _Prompt.SetActive(false);
              }

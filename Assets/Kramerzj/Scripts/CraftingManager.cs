@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static DarkShadowHunter.PotionCraftingDataBase;
+
 namespace DarkShadowHunter
 {
     public class CraftingManager : MonoBehaviour
@@ -12,11 +15,12 @@ namespace DarkShadowHunter
         public Slot[] craftingSlots;
 
         public List<Item> itemList;
-        public InventoryDataContainer SO_Data;
-        public string[] recipes;
-        public Item[] recipeResults;
+        [SerializeField] private InventoryDataContainer _IDC;
+        [SerializeField] private InventoryManager _inventoryManager;
+        [SerializeField] private PotionCraftingDataBase _potionCraftingData;
         public Slot resultSlot;
         public string[] currentRecipeString = new string[4];
+
         private void Update()
         {
             if (Input.GetMouseButtonUp(0))
@@ -51,23 +55,33 @@ namespace DarkShadowHunter
         {
             resultSlot.gameObject.SetActive(false);
             resultSlot.item = null;
-
+            string tempRecipe = "";
+            
+            var recipes = Enum.GetValues(typeof(PotionCraftingDataBase.PotionIngredients));
             for (int i =0;i< currentRecipeString.Length;i++)//empty the array
             {
                 currentRecipeString[i] = "";
             }
             for(int i = 0; i < itemList.Count; i++)//check itemlist for currentRecipeString
             {
-                 currentRecipeString[i] = itemList[i].itemName;
+                if (itemList[i]!=null)
+                {
+                    currentRecipeString[i] = itemList[i].itemName;
+                    tempRecipe += currentRecipeString[i];
+                }
             }
-            for (int i = 0; i < recipes.Length; i++)//check recipe list for a match with currentRecipeString
+            Debug.Log("temprecipe is "+tempRecipe);
+            Debug.Log("_potionCraftingData is " + _potionCraftingData.potionsToCraft[0].potionIngredients.ToString());
+            for (int i=0;i< _potionCraftingData.potionsToCraft.Length;i++)
             {
-                Debug.LogError(currentRecipeString.ToString());
-                if (recipes[i] == currentRecipeString.ToString())
+
+                
+                if (_potionCraftingData.potionsToCraft[i].potionIngredients.ToString() == tempRecipe)
                 {
                     resultSlot.gameObject.SetActive(true);
-                    resultSlot.GetComponent<Image>().sprite = recipeResults[i].GetComponent<Image>().sprite;
-                    resultSlot.item = recipeResults[i];
+                    resultSlot.item = new Item();
+                    resultSlot.item.itemName = _potionCraftingData.potionsToCraft[i].nameOfPotion;
+                    resultSlot.GetComponent<Image>().sprite = _potionCraftingData.potionsToCraft[i].potionIcon;
                 }
             }
         }
@@ -91,34 +105,54 @@ namespace DarkShadowHunter
         }
         public void OnCraftButtonDown()
         {
-            int materialNeededCouter = 0;
-            if (resultSlot.item!=null)
-            {
-                for(int i = 0; i < currentRecipeString.Length; i++)
-                {
-                    if (currentRecipeString[i]!= "")
-                    {
-                        materialNeededCouter++;
-                        if (SO_Data.inventoryData[i].inventoryItemCounter>=1) {
-                            materialNeededCouter--;
-                        }
-                    }
-
-                }
-            }
-            if (materialNeededCouter == 0)
+            if (resultSlot.item != null)
             {
                 for (int i = 0; i < currentRecipeString.Length; i++)
                 {
                     if (currentRecipeString[i] != "")
                     {
-                        SO_Data.inventoryData[i].inventoryItemCounter--;//use material in SO database
+                        if (_IDC.inventoryData[i].inventoryItemCounter < 1)//if not enough material, return and do nothing
+                        {
+                            return;//do nothing
+                        }
+                    }
+
+                }
+            }
+            else
+            {
+                for (int i = 0; i < currentRecipeString.Length; i++)
+                {
+                    if (currentRecipeString[i] != "")
+                    {
+                        for (int j = 0; j < _IDC.inventoryData.Length; j++)
+                        {
+                            if (currentRecipeString[i] == _IDC.inventoryData[j].inventoryItemName)
+                            {
+                                if (_IDC.inventoryData[j].inventoryItemCounter>0)
+                                {
+                                    _IDC.inventoryData[j].inventoryItemCounter--;//use material in SO database
+                                    _inventoryManager.AddItemToInventory(_IDC.inventoryData[j].inventoryItemName, _IDC.inventoryData[j].inventoryItemCounter, _IDC.inventoryData[j].inventoryItemSprite);//just update not add
+                                }
+                                else
+                                {
+                                    return;
+                                }
+                                
+                            }
+                        }
                     }
                 }
-                //do something to add things in inventory
-
+                for (int i = 0; i < _potionCraftingData.potionsToCraft.Length; i++)
+                {
+                    if (resultSlot.item.itemName == _potionCraftingData.potionsToCraft[i].nameOfPotion)
+                    {
+                        _potionCraftingData.potionsToCraft[i].potionCount++;//add potion to database
+                        _inventoryManager.AddItemToInventory(_potionCraftingData.potionsToCraft[i].nameOfPotion, _potionCraftingData.potionsToCraft[i].potionCount, _potionCraftingData.potionsToCraft[i].potionIcon);//add potion to inventory
+                    }
+                }
             }
-            
+                     
         }
     }
 }

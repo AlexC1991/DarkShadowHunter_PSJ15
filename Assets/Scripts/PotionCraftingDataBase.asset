@@ -16,9 +16,15 @@ MonoBehaviour:
   - nameOfPotion: Fire Potion
     potionIngredients: 0
     expLevelOfPotion: 0
+    potionIcon: {fileID: 21300000, guid: 8c0f6b65798c8d841a0b4918eb64f705, type: 3}
+    potionCount: 0
   - nameOfPotion: Ice Potion
     potionIngredients: 1
     expLevelOfPotion: 0
+    potionIcon: {fileID: 21300000, guid: 67d698a16e142a64884b6c6bde0b6ef7, type: 3}
+    potionCount: 0
   - nameOfPotion: Light Potion
     potionIngredients: 2
     expLevelOfPotion: 0
+    potionIcon: {fileID: 21300000, guid: 796440f30e3624c4db05a95a6f2c2b74, type: 3}
+    potionCount: 0
