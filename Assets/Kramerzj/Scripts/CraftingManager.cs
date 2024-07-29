@@ -9,16 +9,21 @@ namespace DarkShadowHunter
 {
     public class CraftingManager : MonoBehaviour
     {
+        [Header("UI hook up")]
         private Item _currentItem;
         public Image customCursor;
 
         public Slot[] craftingSlots;
-
+        public Slot resultSlot;
         public List<Item> itemList;
+        [Header("Databases")]
         [SerializeField] private InventoryDataContainer _IDC;
         [SerializeField] private InventoryManager _inventoryManager;
         [SerializeField] private PotionCraftingDataBase _potionCraftingData;
-        public Slot resultSlot;
+
+        [Header("Parameter for crafting potion")]
+        [SerializeField] private float craftCapacity = 30f;
+        
         public string[] currentRecipeString = new string[4];
 
         private void Update()
@@ -57,7 +62,7 @@ namespace DarkShadowHunter
             resultSlot.item = null;
             string tempRecipe = "";
             
-            var recipes = Enum.GetValues(typeof(PotionCraftingDataBase.PotionIngredients));
+            //var recipes = Enum.GetValues(typeof(PotionCraftingDataBase.PotionIngredients));
             for (int i =0;i< currentRecipeString.Length;i++)//empty the array
             {
                 currentRecipeString[i] = "";
@@ -74,8 +79,6 @@ namespace DarkShadowHunter
             Debug.Log("_potionCraftingData is " + _potionCraftingData.potionsToCraft[0].potionIngredients.ToString());
             for (int i=0;i< _potionCraftingData.potionsToCraft.Length;i++)
             {
-
-                
                 if (_potionCraftingData.potionsToCraft[i].potionIngredients.ToString() == tempRecipe)
                 {
                     resultSlot.gameObject.SetActive(true);
@@ -147,8 +150,8 @@ namespace DarkShadowHunter
                 {
                     if (resultSlot.item.itemName == _potionCraftingData.potionsToCraft[i].nameOfPotion)
                     {
-                        _potionCraftingData.potionsToCraft[i].potionCount++;//add potion to database
-                        _inventoryManager.AddItemToInventory(_potionCraftingData.potionsToCraft[i].nameOfPotion, _potionCraftingData.potionsToCraft[i].potionCount, _potionCraftingData.potionsToCraft[i].potionIcon);//add potion to inventory
+                        _potionCraftingData.potionsToCraft[i].potionCapacity += craftCapacity;//add potion to database
+                        //add potion to inventory
                     }
                 }
             }

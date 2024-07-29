@@ -15,7 +15,7 @@ namespace DarkShadowHunter
             public PotionIngredients potionIngredients;
             public PotionExpLevel expLevelOfPotion;
             public Sprite potionIcon;
-            public int potionCount;
+            public float potionCapacity;
         }
         
         public enum PotionIngredients
