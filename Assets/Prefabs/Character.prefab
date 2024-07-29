@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -4648852041769076468}
   - component: {fileID: -5804825421199075023}
   - component: {fileID: 2106512708192620148}
-  - component: {fileID: 1143463679513704338}
+  - component: {fileID: 4400752853332112868}
   m_Layer: 0
   m_Name: Character
   m_TagString: Player
@@ -228,7 +228,7 @@ MonoBehaviour:
   downValue: -30
   upValue: 20
   playerCamera: {fileID: 5891822821203973005}
---- !u!114 &1143463679513704338
+--- !u!114 &4400752853332112868
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -476,7 +476,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7575043293490325277, guid: 518807f806243aa43a5a1cd52994bc5a,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1151215832367334393}
+      addedObject: {fileID: 2660378558829177402}
+    - targetCorrespondingSourceObject: {fileID: 7575043293490325277, guid: 518807f806243aa43a5a1cd52994bc5a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2180991380091075747}
   m_SourcePrefab: {fileID: 100100000, guid: 518807f806243aa43a5a1cd52994bc5a, type: 3}
 --- !u!4 &4231364227098197340 stripped
 Transform:
@@ -503,7 +507,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammoManager: []
---- !u!114 &1151215832367334393
+--- !u!114 &2660378558829177402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4403852876040085512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d851b779f0fb67e42b831da94222ab04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ammoManager: []
+--- !u!114 &2180991380091075747
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
