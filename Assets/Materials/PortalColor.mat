@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Poison Potion Liquid
+  m_Name: PortalColor
   m_Shader: {fileID: -6465566751694194690, guid: 6de5be25f6aa4cd4382b6d7ff16c93d9,
     type: 3}
   m_Parent: {fileID: 0}
@@ -53,22 +53,22 @@ Material:
     m_Floats:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
-    - _Emission: 3
-    - _Fresnel_power: 0.3
-    - _Fullness: 0.0183
-    - _Parallax_Amplitude: 20.27
+    - _Emission: 8.7
+    - _Fresnel_power: 0.81
+    - _Fullness: 2.72
+    - _Parallax_Amplitude: 28.97
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _Color: {r: 0.05612654, g: 0.98039216, b: 0, a: 0}
-    - _Fresnel_Color: {r: 0.23563151, g: 0.6320754, b: 0.008944447, a: 1}
-    - _Liquid_XY_Tiling_Z_Power_W_Speed: {r: 2.95, g: 1.13, b: 0.2, a: 0}
-    - _MainTex_XY_Tiling_ZW_Offset: {r: 2, g: 2, b: 0, a: 0}
+    - _Color: {r: 0.082013145, g: 0.9150943, b: 0.83209515, a: 0}
+    - _Fresnel_Color: {r: 0.0047169924, g: 1, b: 0.76837546, a: 1}
+    - _Liquid_XY_Tiling_Z_Power_W_Speed: {r: 0.62, g: -6.33, b: 1.78, a: 0.98}
+    - _MainTex_XY_Tiling_ZW_Offset: {r: 6.31, g: 4.09, b: 1.62, a: 1.67}
     - _Parallax_Tiling_and_Offset: {r: 2, g: 3, b: 0, a: 0}
     - _Speed_XY_MainTex_ZW_Parallax: {r: 0.3, g: 0.3, b: 0, a: 0}
-    - _Speed_XY_TopTex: {r: 0.05, g: -0.1, b: 0, a: 0}
+    - _Speed_XY_TopTex: {r: 2.58, g: 3.6, b: 2.26, a: 13.77}
     - _TopTex_XY_Tiling_ZW_Offset: {r: 1, g: 2, b: 0, a: 0}
-    - _Top_color: {r: 0.04472231, g: 0.6320754, b: 0.2274924, a: 1}
+    - _Top_color: {r: 0.12775902, g: 0.28035834, b: 0.9339623, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &348706207695496369
 MonoBehaviour:
