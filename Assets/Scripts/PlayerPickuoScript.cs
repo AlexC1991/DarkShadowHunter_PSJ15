@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using TMPro;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 namespace DarkShadowHunter
@@ -10,6 +11,7 @@ namespace DarkShadowHunter
         private Ray _infoRay;
         [SerializeField] private InventoryManager _inventoryM;
         [SerializeField] private InventoryDataContainer _iDC;
+        [SerializeField] private PlayerInteract _playerInteract;
         [TagSelector] public string[] tagToPickupOnly;
         [SerializeField] private Camera _mainCamera;
         [SerializeField] private TextMeshProUGUI _pickUpText;
@@ -34,7 +36,7 @@ namespace DarkShadowHunter
                 Debug.LogError("Inventory Manager or Inventory Data Container is not assigned.");
                 return;
             }
-
+            _playerInteract = GetComponent<PlayerInteract>();
             _pickUpText.text = "";
 
             if (tagToPickupOnly.Length >= 4)
@@ -66,12 +68,11 @@ namespace DarkShadowHunter
                 if (Physics.Raycast(_infoRay, out hit, 2))
                 {
                     _hitObject = hit.collider.gameObject;
-
                     if (_hitObject != null)
                     {
                         string objectTag = _hitObject.tag;
                         Debug.Log("Hit Object: " + _hitObject.name + " with Tag: " + objectTag);
-
+                        _playerInteract.Interacts(_hitObject);//trying to interact with object
                         if (_hitObject.CompareTag(_tagOptionOne))
                         {
                             HandlePickup(_tagOptionOne);
@@ -113,7 +114,7 @@ namespace DarkShadowHunter
         {
             Debug.Log("Found " + itemName);
             _pickUpText.text = "Press E to pick up " + itemName;
-
+            
             if (Input.GetKeyDown(KeyCode.E) && _hitObject != null)
             {
                 if (_hitObject.CompareTag(_tagOptionOne))

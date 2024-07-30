@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace DarkShadowHunter
 {
-    public class Interactable : MonoBehaviour
+    public class PotionCraftTable : Interatable
     {
         private PlayerScript _player;
         [SerializeField] private GameObject _Prompt;
@@ -13,7 +13,7 @@ namespace DarkShadowHunter
         // Start is called before the first frame update
         void Start()
         {
-            //_mainCam = Camera.main;
+            _mainCam = GameObject.Find("CharacterCam").GetComponent<Camera>();
         }
 
         // Update is called once per frame
@@ -22,16 +22,21 @@ namespace DarkShadowHunter
             if (_player!=null)
             {
                 BillboardForPrompt();
-                if (Input.GetKeyUp(KeyCode.E))
-                {
-                    MenuSwitch();
-                    _player.PauseSwitch();
-                }
+                Interact();
             }
             else
             {
                 MenuSwitch(false);//will close menu if too far from player
                 _isCrafting = false;
+            }
+        }
+
+        public override void Interact()
+        {
+            if (Input.GetKeyUp(KeyCode.E))
+            {
+                MenuSwitch();
+                _player.PauseSwitch();
             }
         }
 
