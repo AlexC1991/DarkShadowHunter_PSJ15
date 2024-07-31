@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Black Ash
+  - Gloom Residue
+  - Tainted Flesh
+  - Dark Bead
+  - Interactable
   layers:
   - Default
   - TransparentFX
