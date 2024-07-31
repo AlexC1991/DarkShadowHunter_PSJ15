@@ -24,7 +24,7 @@ namespace Unity.FPS.Game
         [Tooltip("The color of the crosshair image")]
         public Color CrosshairColor;
     }
-
+    
     [RequireComponent(typeof(AudioSource))]
     public class WeaponController : MonoBehaviour
     {
