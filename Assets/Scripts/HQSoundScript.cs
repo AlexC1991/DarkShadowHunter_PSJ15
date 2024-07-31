@@ -1,47 +1,60 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
 public class HQSoundScript : MonoBehaviour
 {
-    [SerializeField] ScriptableAudioFile labSound;
+    [SerializeField] private ScriptableAudioFile hqMusic;
     [SerializeField] private float visionRadius = 1;
     [SerializeField] private GameObject player;
-    private Vector3 playerCoordinates;
+    private Coroutine musicCoroutine;
 
     private void Start()
     {
-        StartCoroutine(PlayMusic());
+        musicCoroutine = StartCoroutine(CheckPlayerDistance());
     }
 
-    public IEnumerator PlayMusic()
+    private IEnumerator CheckPlayerDistance()
     {
-            if (PlayerIsClose())
+        while (true)
+        {
+            bool playerClose = PlayerIsInCircle();
+
+            if (playerClose)
             {
-                labSound.PlayAudio();
+                if (hqMusic.audioSource == null || !hqMusic.audioSource.isPlaying)
+                {
+                    PlayMusic();
+                }
             }
-            if (PlayerIsClose() && labSound.audioSource.isPlaying)
+            else if (!playerClose)
             {
-                labSound.audioSource.volume = 0.01f;
+                if (hqMusic.audioSource != null && hqMusic.audioSource.isPlaying)
+                {
+                    StopMusic();
+                }
             }
-            else
-            {
-                labSound.StopAudio();
-            }
-            yield break;
+
+            yield return new WaitForSeconds(0.5f);
+        }
     }
-    
-    
-    private bool PlayerIsClose()
+
+    private bool PlayerIsInCircle()
     {
-        if (Vector3.Distance(player.transform.position, transform.position) < visionRadius)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        float distance = Vector3.Distance(player.transform.position, transform.position);
+        return distance < visionRadius;
+    }
+
+    private void PlayMusic()
+    {
+        Debug.Log("Playing music");
+        hqMusic.PlayAudio();
+        hqMusic.volume = 0.01f;
+    }
+
+    private void StopMusic()
+    {
+        Debug.Log("Stopping music");
+        hqMusic.StopAudio();
     }
 
     private void OnDrawGizmos()

@@ -16,7 +16,7 @@ namespace DarkShadowHunter
         private readonly String _playerOneXboxMouseY1 = "XboxMouse Y1";
 
         [HideInInspector] public float mouseSensitivityY, mouseSensitivityX;
-
+        [SerializeField] private Transform _playerSpawnhere;
         [SerializeField] private float walkSpeed;
         public static CharacterController _controller;
         private Vector3 _moveDirection;
@@ -36,6 +36,7 @@ namespace DarkShadowHunter
         private void Awake()
         {
             _controller = GetComponent<CharacterController>();
+            _controller.transform.position = _playerSpawnhere.position;
         }
 
         private void Start()
